@@ -1,0 +1,333 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Storekeeper API",
+    "description": "Inventory management API for CSE341 Week 3 project",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/items/": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Get all inventory items",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Create an inventory item",
+        "description": "",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Inventory item data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItemInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/items/{id}": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Get an item by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Item id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Update an inventory item",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Item id"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Inventory item data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItemInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Delete an inventory item",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Item id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/suppliers/": {
+      "get": {
+        "tags": [
+          "Suppliers"
+        ],
+        "summary": "Get all suppliers",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Suppliers"
+        ],
+        "summary": "Create a supplier",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Supplier data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SupplierInput"
+            }
+          }
+        ]
+      }
+    },
+    "/api/suppliers/{id}": {
+      "get": {
+        "tags": [
+          "Suppliers"
+        ],
+        "summary": "Get a supplier by id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Supplier id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Suppliers"
+        ],
+        "summary": "Update a supplier",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Supplier id"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Supplier data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SupplierInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Suppliers"
+        ],
+        "summary": "Delete a supplier",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Supplier id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SupplierInput": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Tech Source Ltd"
+        },
+        "email": {
+          "type": "string",
+          "example": "sales@techsource.com"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+2348012345678"
+        },
+        "address": {
+          "type": "string",
+          "example": "12 Warehouse Road, Lagos"
+        },
+        "contactPerson": {
+          "type": "string",
+          "example": "Ada Johnson"
+        }
+      }
+    },
+    "ItemInput": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Wireless Mouse"
+        },
+        "sku": {
+          "type": "string",
+          "example": "WM-1001"
+        },
+        "category": {
+          "type": "string",
+          "example": "Electronics"
+        },
+        "quantityInStock": {
+          "type": "number",
+          "example": 25
+        },
+        "unitPrice": {
+          "type": "number",
+          "example": 19.99
+        },
+        "supplier": {
+          "type": "string",
+          "example": "65f0749dbe57a3fb53c0b111"
+        },
+        "reorderLevel": {
+          "type": "number",
+          "example": 10
+        },
+        "location": {
+          "type": "string",
+          "example": "Shelf A3"
+        },
+        "description": {
+          "type": "string",
+          "example": "Compact wireless mouse"
+        },
+        "lastRestocked": {
+          "type": "string",
+          "example": "2026-03-20T00:00:00.000Z"
+        }
+      }
+    }
+  }
+}

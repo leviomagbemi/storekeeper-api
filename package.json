@@ -1,0 +1,25 @@
+{
+  "name": "storekeeper",
+  "version": "1.0.0",
+  "description": "Week 3 inventory management API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node swagger.js && node app.js",
+    "dev": "node swagger.js && node app.js",
+    "swagger": "node swagger.js",
+    "test": "echo \"No tests configured\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "mongodb": "^7.1.1",
+    "mongoose": "^9.3.2",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
