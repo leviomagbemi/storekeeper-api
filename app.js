@@ -22,10 +22,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use('/api', routes);
-
-app.use(notFoundHandler);
-app.use(errorHandler);
+app.use('/', routes);
 
 const startServer = async () => {
   try {
@@ -37,6 +34,9 @@ const startServer = async () => {
       );
       app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     }
+
+    app.use(notFoundHandler);
+    app.use(errorHandler);
 
     await connectDatabase();
     app.listen(port, () => {

@@ -58,8 +58,20 @@ const generateSwagger = async () => {
   await swaggerAutogen(outputFile, endpointsFiles, doc);
 
   const swaggerOutput = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+  const itemsCollectionPath = swaggerOutput.paths['/items/']
+    ? '/items/'
+    : '/api/items/';
+  const itemByIdPath = swaggerOutput.paths['/items/{id}']
+    ? '/items/{id}'
+    : '/api/items/{id}';
+  const suppliersCollectionPath = swaggerOutput.paths['/suppliers/']
+    ? '/suppliers/'
+    : '/api/suppliers/';
+  const supplierByIdPath = swaggerOutput.paths['/suppliers/{id}']
+    ? '/suppliers/{id}'
+    : '/api/suppliers/{id}';
 
-  swaggerOutput.paths['/api/items/'].post.parameters = [
+  swaggerOutput.paths[itemsCollectionPath].post.parameters = [
     {
       in: 'body',
       name: 'body',
@@ -71,7 +83,7 @@ const generateSwagger = async () => {
     }
   ];
 
-  swaggerOutput.paths['/api/items/{id}'].put.parameters = [
+  swaggerOutput.paths[itemByIdPath].put.parameters = [
     {
       name: 'id',
       in: 'path',
@@ -90,7 +102,7 @@ const generateSwagger = async () => {
     }
   ];
 
-  swaggerOutput.paths['/api/suppliers/'].post.parameters = [
+  swaggerOutput.paths[suppliersCollectionPath].post.parameters = [
     {
       in: 'body',
       name: 'body',
@@ -102,7 +114,7 @@ const generateSwagger = async () => {
     }
   ];
 
-  swaggerOutput.paths['/api/suppliers/{id}'].put.parameters = [
+  swaggerOutput.paths[supplierByIdPath].put.parameters = [
     {
       name: 'id',
       in: 'path',
@@ -121,10 +133,10 @@ const generateSwagger = async () => {
     }
   ];
 
-  delete swaggerOutput.paths['/api/items/'].post.requestBody;
-  delete swaggerOutput.paths['/api/items/{id}'].put.requestBody;
-  delete swaggerOutput.paths['/api/suppliers/'].post.requestBody;
-  delete swaggerOutput.paths['/api/suppliers/{id}'].put.requestBody;
+  delete swaggerOutput.paths[itemsCollectionPath].post.requestBody;
+  delete swaggerOutput.paths[itemByIdPath].put.requestBody;
+  delete swaggerOutput.paths[suppliersCollectionPath].post.requestBody;
+  delete swaggerOutput.paths[supplierByIdPath].put.requestBody;
 
   fs.writeFileSync(outputFile, JSON.stringify(swaggerOutput, null, 2));
 

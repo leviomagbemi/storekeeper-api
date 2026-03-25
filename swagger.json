@@ -21,7 +21,7 @@
         }
       }
     },
-    "/api/items/": {
+    "/items/": {
       "get": {
         "tags": [
           "Items"
@@ -64,7 +64,7 @@
         }
       }
     },
-    "/api/items/{id}": {
+    "/items/{id}": {
       "get": {
         "tags": [
           "Items"
@@ -153,7 +153,7 @@
         }
       }
     },
-    "/api/suppliers/": {
+    "/suppliers/": {
       "get": {
         "tags": [
           "Suppliers"
@@ -193,7 +193,7 @@
         }
       }
     },
-    "/api/suppliers/{id}": {
+    "/suppliers/{id}": {
       "get": {
         "tags": [
           "Suppliers"
