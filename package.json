@@ -4,8 +4,8 @@
   "description": "Week 3 inventory management API",
   "main": "app.js",
   "scripts": {
-    "start": "node swagger.js && node app.js",
-    "dev": "node swagger.js && node app.js",
+    "start": "node app.js",
+    "dev": "node app.js",
     "swagger": "node swagger.js",
     "test": "echo \"No tests configured\""
   },
