@@ -28,7 +28,30 @@ const doc = {
   },
   host: baseUrl.host,
   schemes: [baseUrl.protocol.replace(':', '')],
+  tags: [
+    { name: 'Authentication', description: 'Authentication and session routes' },
+    { name: 'Items', description: 'Inventory item routes' },
+    { name: 'Suppliers', description: 'Supplier routes' }
+  ],
+  securityDefinitions: {
+    sessionAuth: {
+      type: 'apiKey',
+      in: 'header',
+      name: 'Cookie',
+      description:
+        'Session authentication. Log in first, then send the session cookie in subsequent requests.'
+    }
+  },
   definitions: {
+    RegisterInput: {
+      username: 'storekeeperadmin',
+      email: 'admin@example.com',
+      password: 'Password123'
+    },
+    LoginInput: {
+      email: 'admin@example.com',
+      password: 'Password123'
+    },
     SupplierInput: {
       name: 'Tech Source Ltd',
       email: 'sales@techsource.com',
@@ -70,6 +93,40 @@ const generateSwagger = async () => {
   const supplierByIdPath = swaggerOutput.paths['/suppliers/{id}']
     ? '/suppliers/{id}'
     : '/api/suppliers/{id}';
+  const authRegisterPath = swaggerOutput.paths['/auth/register']
+    ? '/auth/register'
+    : null;
+  const authLoginPath = swaggerOutput.paths['/auth/login']
+    ? '/auth/login'
+    : null;
+
+  if (authRegisterPath) {
+    swaggerOutput.paths[authRegisterPath].post.parameters = [
+      {
+        in: 'body',
+        name: 'body',
+        description: 'Registration data',
+        required: true,
+        schema: {
+          $ref: '#/definitions/RegisterInput'
+        }
+      }
+    ];
+  }
+
+  if (authLoginPath) {
+    swaggerOutput.paths[authLoginPath].post.parameters = [
+      {
+        in: 'body',
+        name: 'body',
+        description: 'Login data',
+        required: true,
+        schema: {
+          $ref: '#/definitions/LoginInput'
+        }
+      }
+    ];
+  }
 
   swaggerOutput.paths[itemsCollectionPath].post.parameters = [
     {
@@ -137,6 +194,12 @@ const generateSwagger = async () => {
   delete swaggerOutput.paths[itemByIdPath].put.requestBody;
   delete swaggerOutput.paths[suppliersCollectionPath].post.requestBody;
   delete swaggerOutput.paths[supplierByIdPath].put.requestBody;
+  if (authRegisterPath) {
+    delete swaggerOutput.paths[authRegisterPath].post.requestBody;
+  }
+  if (authLoginPath) {
+    delete swaggerOutput.paths[authLoginPath].post.requestBody;
+  }
 
   fs.writeFileSync(outputFile, JSON.stringify(swaggerOutput, null, 2));
 
